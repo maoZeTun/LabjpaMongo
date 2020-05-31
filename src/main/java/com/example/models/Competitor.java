@@ -9,29 +9,34 @@ package com.example.models;
 import com.sun.istack.NotNull;
 import java.io.Serializable;
 import java.util.Calendar;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.eclipse.persistence.nosql.annotations.DataFormatType;
+import org.eclipse.persistence.nosql.annotations.Field;
+import org.eclipse.persistence.nosql.annotations.NoSql;
 
-/**
- *
- * @author Mauricio
- */
+
+@NoSql(dataFormat = DataFormatType.MAPPED)
 @Entity
 @XmlRootElement
 public class Competitor implements Serializable{
      private static final long serialVersionUID = 1L;
      
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue
+    @Field(name="_id")
+    private String id;
     
     @NotNull
     @Column(name = "create_at", updatable = false)
@@ -60,11 +65,29 @@ public class Competitor implements Serializable{
     private String country;
     
     private boolean winner;
-    //
+   
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "competitor")
+    private String producto;
+    
+    @Embedded
+    private Vehicle vehicle;
     
     public Competitor(){
         
     }
+
+    public Competitor(String name, String surname, int age, String telephone, String cellphone, String address, String city, String country, boolean winner) {
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+        this.telephone = telephone;
+        this.cellphone = cellphone;
+        this.address = address;
+        this.city = city;
+        this.country = country;
+        this.winner = winner;
+    }
+    
     
     @PreUpdate
     private void updateTimestamp() {
@@ -76,11 +99,11 @@ public class Competitor implements Serializable{
         this.createdAt = this.updatedAt = Calendar.getInstance();
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -154,6 +177,14 @@ public class Competitor implements Serializable{
 
     public void setWinner(boolean winner) {
         this.winner = winner;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
     
 }

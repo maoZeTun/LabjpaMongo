@@ -48,13 +48,20 @@
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>eclipselink</artifactId>
-			<version>2.5.0</version>
+			<version>2.5.0-RC1</version>
 			<type>jar</type>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>org.eclipse.persistence</groupId>
+                                <artifactId>commonj.sdo</artifactId>
+                            </exclusion>
+                        </exclusions>
+                            
 		</dependency>
 		<dependency>
-			<groupId>postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>9.1-901-1.jdbc4</version>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>2.12.3</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -67,6 +74,12 @@
 			<artifactId>json-simple</artifactId>
 			<version>1.1</version>
 		</dependency>
+	 <dependency>
+	  <groupId>org.eclipse.persistence</groupId>
+	  <artifactId>org.eclipse.persistence.nosql</artifactId>
+	  <version>2.5.0</version>
+	  <type>jar</type>
+	 </dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -88,7 +101,6 @@
 
 		<pluginManagement>
 			<plugins>
-
 				<!-- M2Eclipse Compatibility -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
@@ -118,10 +130,28 @@
 		</pluginManagement>
 	</build>
 	<repositories>
-		<repository>
-			<id>unknown-jars-temp-repo</id>
-			<name>A temporary repository created by NetBeans for libraries and jars it could not identify. Please replace the dependencies in this repository with correct ones and delete this repository.</name>
-			<url>file:${project.basedir}/lib</url>
-		</repository>
+            <repository>
+                <id>central</id>
+                <name>Central Repository</name>
+                <url>https://repo.maven.apache.org/maven2</url>
+                <layout>default</layout>
+                <snapshots>
+                    <enabled>false</enabled>
+                </snapshots>
+            </repository>
 	</repositories>
+        <pluginRepositories>
+            <pluginRepository>
+                <id>central</id>
+                <name>Central Repository</name>
+                <url>https://repo.maven.apache.org/maven2</url>
+                <layout>default</layout>
+                <snapshots>
+                    <enabled>false</enabled>
+                </snapshots>
+                <releases>
+                    <updatePolicy>never</updatePolicy>
+                </releases>
+            </pluginRepository>
+        </pluginRepositories>
 </project>

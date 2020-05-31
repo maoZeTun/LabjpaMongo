@@ -6,10 +6,7 @@
 
 package com.example.models;
 
-/**
- *
- * @author Mauricio
- */
+
 public class CompetitorDTO {
  
     private String name;
@@ -28,6 +25,7 @@ public class CompetitorDTO {
     
     private String country;
     
+    private Vehicle vehicle;
     
     public CompetitorDTO(){
         
@@ -95,6 +93,14 @@ public class CompetitorDTO {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
     
 }
